@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/SeanDoody/gc-express-lab-1#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.2"
   }
 }
