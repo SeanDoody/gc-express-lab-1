@@ -11,17 +11,19 @@ const cartArray = [
 ];
 
 cartItems.get('/', (req, res) => {
+    let returnArray = cartArray;
     if (req.query.maxPrice) {
-        res.json(cartArray.filter(item => item.price <= req.query.maxPrice));
-    } else if (req.query.prefix) {
+        returnArray = returnArray.filter(item => item.price <= req.query.maxPrice);
+    }
+    if (req.query.prefix) {
         const prefix = req.query.prefix;
         const prefixLen = prefix.length;
-        res.json(cartArray.filter(item => item.product.substring(0, prefixLen) === prefix));
-    } else if (req.query.pageSize) {
-        res.json(cartArray.slice(0, req.query.pageSize));
-    } else {
-        res.json(cartArray);
+        returnArray = returnArray.filter(item => item.product.substring(0, prefixLen) === prefix);
     }
+    if (req.query.pageSize) {
+        returnArray = returnArray.slice(0, req.query.pageSize);
+    }
+    res.json(returnArray);
 });
 
 cartItems.get('/:id', (req, res) => {
